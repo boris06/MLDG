@@ -1,0 +1,1 @@
+lon_err1	lat_err1	flag_err1	lon_err2	lat_err2	flag_err2

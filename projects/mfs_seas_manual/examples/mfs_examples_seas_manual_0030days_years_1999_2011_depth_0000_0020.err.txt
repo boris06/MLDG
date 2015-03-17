@@ -1,0 +1,2 @@
+lon_err1	lat_err1	flag_err1	lon_err2	lat_err2	flag_err2
+   14.188960599	   37.087107040	0	   15.094769835	   36.654109079	3

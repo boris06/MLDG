@@ -1,0 +1,175 @@
+---
+title: "Multi-level directed graphs - correlation with wind energy"
+author: "Boris Petelin"
+output: pdf_document
+---
+
+```{r}
+library(knitr)
+knitr::opts_chunk$set(cache=TRUE)
+library(igraph)
+library(ncdf)
+library(reshape2)
+library(TSA)
+mldgpath <- "C:/Users/petelin/Documents/MLDG"
+model <- "mfs"
+nx <- 60
+ny <- 30
+project <- paste0(model,"_",sprintf("%dx%d", nx, ny))
+projpath <- paste0(mldgpath, "/projects/", project)
+setwd(projpath)
+geompath <- paste0(projpath, "/geometry")
+graphpath <- paste0(projpath, "/graphs")
+otherpath <- paste0(projpath, "/other")
+```
+
+```{r}
+mapfile <- paste0(geompath, "/", model, "_", sprintf("%dx%d", nx, ny), 
+                  "_model_cells_vertices.txt")
+cells.vertices <- read.table(mapfile, header = FALSE, sep = "", 
+                             stringsAsFactors = FALSE)
+rownames(cells.vertices) <- 1:dim(cells.vertices)[1]
+colnames(cells.vertices) <- 1:dim(cells.vertices)[2]
+cells.vertices <- t(cells.vertices)
+```
+
+```{r}
+# reading graph file into the data frame
+granularity <- sprintf("%dx%d", nx, ny)
+dt.unit <- "days" 
+format <- "%s_%s_rules_%04ddays_%04d_%02d_depth_%04d_%04d.gml"
+yearmin <- 1999
+yearmax <- 2011
+monthmin <- 1
+monthmax <- 12
+depthmin <- 0
+depthmax <- -20
+timeinter <- 6
+ncfile <- paste0(otherpath, "/mfs_month_wind_avg_1999_2011.nc") 
+varname <- 'windpower_m'
+windfile <- paste0(otherpath, "/mean_wind_energy.txt")
+format.wind.corr <- "%s_%s_wind_corr_%04ddays_years_%04d_%04d_depth_%04d_%04d.gml"
+```
+
+```{r eval=FALSE}
+ncid <- open.ncdf(ncfile)
+for (year in c(yearmin:yearmax)){
+        for (month in c(monthmin:monthmax)) {
+                graphfile <- paste0(graphpath,"/",sprintf(format,model,
+                                                          granularity,timeinter,
+                                                          year,month,depthmin*(-1),
+                                                          depthmax*(-1)))
+                g <- read.graph(graphfile, format = "graphml")
+                g <- set.vertex.attribute(g, "mean_wind_energy", index=V(g), 0)
+                start <- c(year-yearmin+1,month-monthmin+1,1,1)
+                count <- c(1,1,ncid$dim$x$len,ncid$dim$y$len)
+                ncdata <- get.var.ncdf( ncid, varname, start=start, count=count)
+                for (i in c(1:length(V(g)))) {
+                        vname <- V(g)[i]$name
+                        select <- cells.vertices == vname & ncdata < 1e+20
+                        mwnd <- mean(ncdata[select])
+                        V(g)[vname]$mean_wind_energy <- mwnd
+                        write(paste(year,month,V(g)[i]$name, mwnd,sep="\t"), 
+                              file = windfile,
+                              append = TRUE)
+                }
+                write.graph(g, graphfile, format = "graphml")
+        }      
+}
+```
+
+```{r}
+# constructing the empty data frame according to time span
+years <- yearmin:yearmax
+months <- monthmin:monthmax
+yearmonth <- as.data.frame(cbind(rep(years,each=length(months)),
+                                 rep(months,times=length(years))))
+colnames(yearmonth) <- c("year","month")
+```
+
+```{r}
+# reading graph file into the data frame
+g <- list()
+count <- 0
+dfv <- NULL
+df <- NULL
+for (year in c(yearmin:yearmax)){
+        for (month in c(monthmin:monthmax)) {
+                graphfile <- paste0(graphpath,"/",sprintf(format,model,
+                                                          granularity,timeinter,
+                                                          year,month,depthmin*(-1),
+                                                          depthmax*(-1)))
+                count <- count + 1
+                g[[count]] <- read.graph(graphfile, format = "graphml")
+                mean_wind_energy <- V(g[[count]])$mean_wind_energy
+                vc <- vcount(g[[count]])
+                dfv1 <- data.frame(year=rep(year,times=vc),
+                                         month=rep(month,times=vc),
+                                         from=V(g[[count]])$name,
+                                         mean_wind_energy=mean_wind_energy)
+                dfv <- rbind(dfv,dfv1)
+                ec <- ecount(g[[count]])
+                if (ec > 0) {
+                        edges <- get.edgelist(g[[count]])
+                        prob <- E(g[[count]])$conf
+                        df1 <- data.frame(year=rep(year,times=ec),
+                                         month=rep(month,times=ec),
+                                         from=edges[,1],
+                                         to=edges[,2],
+                                         prob=prob)
+                        df <- rbind(df,df1)
+                }
+        }      
+}
+```
+
+## Cleaning and tidying the data
+
+We transform the probabilities into tidy data, that is, the rows represent years and months, the columns represent the edges labeled as "from_to". 
+
+```{r}
+prob.tidy <- dcast(df, year + month ~ from + to, value.var = "prob")
+prob.tidy <- merge(yearmonth, prob.tidy, by = c("year","month"),
+                   all.x = TRUE)
+prob.tidy <- prob.tidy[with(prob.tidy, order(year,month)), ]
+wind.tidy <- dcast(dfv, year + month ~ from, value.var = "mean_wind_energy")
+wind.tidy <- merge(yearmonth, wind.tidy, by = c("year","month"),
+                   all.x = TRUE)
+wind.tidy <- wind.tidy[with(wind.tidy, order(year,month)), ]
+```
+
+```{r}
+edgewindcor <- function(edge, prob.tidy, wind.tidy) {
+        fromto <- unlist(strsplit(edge, "_"))
+        from <- fromto[1]
+        to <- fromto[2]
+        datacorr <- data.frame(prob.tidy[,edge],wind.tidy[,from])
+        datacorr <- datacorr[complete.cases(datacorr),]
+        if (length(datacorr[,1]) > 3) {
+                cor.t <- cor.test(datacorr[,1],datacorr[,2])
+                c(from, to, as.numeric(cor.t$estimate), as.numeric(cor.t$statistic),
+                  as.numeric(cor.t$conf.int[1]), as.numeric(cor.t$conf.int[2]), cor.t$p.value)                
+        }
+        else {
+                c(from, to, NA, NA, NA, NA, NA)
+                
+        }
+}
+wind.corr <- lapply(colnames(prob.tidy[-c(1,2)]),FUN=edgewindcor, prob.tidy, wind.tidy)
+wind.corr <- as.data.frame(do.call(rbind, wind.corr))
+wind.corr <- wind.corr[complete.cases(wind.corr),]
+colnames(wind.corr) <- c("from","to","cor","t","conf.int.1","conf.int.2","pvalue")
+```
+
+## Generating the wind correlation graph
+
+```{r}
+vert <- get.data.frame(g[[1]], what="vertices")
+vert1 <- cbind(vert[,"name"],subset(vert, select=-c(name)))
+g.wind.corr <- graph.data.frame(wind.corr, directed=TRUE, vertices=vert1)
+g.file <- paste0(graphpath,"/",sprintf(format.wind.corr,model,granularity,
+                                       timeinter,yearmin,yearmax,
+                                       depthmin*(-1),depthmax*(-1)))
+write.graph(g.wind.corr, g.file,format=c("graphml"))
+```
+

@@ -1,0 +1,85 @@
+---
+title: "Generation of Multi-level Directed Graphs Geometry"
+author: "Boris Petelin"
+output: pdf_document
+---
+
+```{r}
+library(knitr)
+```
+
+```{r global_options, include=TRUE}
+knitr::opts_chunk$set(cache=FALSE)
+```
+
+```{r engine='python', engine.path='C:/Python27/python.exe'}
+import sys
+import os
+mldgpath = "C:/Users/petelin/Documents/MLDG"
+sys.path.insert(0, mldgpath)
+import mldg
+
+model = 'mfs'
+modelpath = mldgpath + "/models/" + model
+meshfile = modelpath + "/" + "meshmask.nc"
+configfile = modelpath + "/" + model + '.cfg'
+maskfile = modelpath + '/' + model + '_mask.shp'
+mask = mldg.load_mask(maskfile)
+
+projspath = mldgpath + "/" + "projects"
+nx = 60
+ny = 30
+project = model + "_" + "%2dx%2d" % (nx,ny)
+projpath = projspath + '/' + project 
+try:
+    os.stat(projpath)
+except:
+    os.mkdir(projpath)
+    os.mkdir(projpath + '/geometry')
+    os.mkdir(projpath + '/trajectories')
+    os.mkdir(projpath + '/examples')
+    os.mkdir(projpath + '/rules')
+    os.mkdir(projpath + '/graphs')
+    os.mkdir(projpath + '/other')
+    os.mkdir(projpath + '/figures')
+
+geompath = projpath + '/geometry' 
+include_region = [2]
+vertfile = geompath + '/' + model + '_vertices_' + "%dx%d" % (nx,ny) + '.shp'
+(verts,name,long_name,lon_wmc,lat_wmc) = mldg.generate_vertices(nx,ny,mask,include_region,configfile)
+mldg.save_vertices(verts,name,long_name,lon_wmc,lat_wmc,vertfile)
+
+mapfile = geompath + '/' + model + '_' + "%dx%d" % (nx,ny) + '_model_cells_vertices.txt' 
+mldg.map_model_cells_to_vertices(meshfile,verts,name,mapfile)
+
+figpath = projpath + '/figures'
+figfile = figpath + '/' + model + '_vertices_' + "%dx%d" % (nx,ny) + '.pdf'
+mldg.show_vertices(verts,name,long_name,lon_wmc,lat_wmc,configfile)
+figfile = figpath + '/' + model + '_vertices_mask_' + "%dx%d" % (nx,ny) + '.pdf'
+mldg.show_vertices_mask(verts,name,lon_wmc,lat_wmc,mask,configfile)
+
+# print project summary
+print 'Project summary:'
+print
+print 'Project: \t%s\tProject path:\t%s' % (project, projpath) 
+print
+print 'Model:'
+print model
+print 'Model path:' 
+print modelpath
+print 'Model meshmask file:' 
+print meshfile
+print 'Model configuration file:' 
+print configfile
+print 'Model mask file:' 
+print maskfile
+print
+print 'Multi-level directed graph vertices file:' 
+print vertfile
+print 'Model cells to vertices mapfile:' 
+print mapfile
+```
+
+![title](C:/Users/petelin/Documents/MLDG/projects/mfs_60x30/figures/mfs_vertices_60x30.png)
+
+![title](C:/Users/petelin/Documents/MLDG/projects/mfs_60x30/figures/mfs_vertices_mask_60x30.png)

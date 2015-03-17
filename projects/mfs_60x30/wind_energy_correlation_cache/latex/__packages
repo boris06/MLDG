@@ -1,0 +1,11 @@
+base
+igraph
+knitr
+leaps
+locfit
+mgcv
+ncdf
+nlme
+reshape2
+TSA
+tseries

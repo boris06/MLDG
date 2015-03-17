@@ -1,0 +1,39 @@
+---
+title: "Generation of Multi-level Directed Graphs Arbitrary Geometry - Part 1"
+author: "Boris Petelin"
+output: pdf_document
+---
+
+```{r}
+library(knitr)
+```
+
+```{r global_options, include=TRUE}
+knitr::opts_chunk$set(cache=FALSE)
+```
+
+```{r engine='python', engine.path='C:/Python27/python.exe'}
+import sys
+import os
+mldgpath = "C:/Users/petelin/Documents/MLDG"
+sys.path.insert(0, mldgpath)
+
+model = 'mfs'
+modelpath = mldgpath + "/models/" + model
+
+projspath = mldgpath + "/" + "projects"
+project = model + "_" + "seas_manual"
+projpath = projspath + '/' + project 
+try:
+    os.stat(projpath)
+except:
+    os.mkdir(projpath)
+    os.mkdir(projpath + '/geometry')
+    os.mkdir(projpath + '/trajectories')
+    os.mkdir(projpath + '/examples')
+    os.mkdir(projpath + '/rules')
+    os.mkdir(projpath + '/graphs')
+    os.mkdir(projpath + '/other')
+    os.mkdir(projpath + '/figures')
+```
+
