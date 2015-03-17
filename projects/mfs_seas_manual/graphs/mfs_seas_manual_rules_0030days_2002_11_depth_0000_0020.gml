@@ -74,136 +74,136 @@
       <data key="lon_wmc">28.6565</data>
     </node>
     <edge source="n4" target="n4">
-      <data key="supp">0.000417</data>
-      <data key="conf">0.983871</data>
-    </edge>
-    <edge source="n4" target="n5">
-      <data key="supp">7e-006</data>
-      <data key="conf">0.016129</data>
+      <data key="supp">0.00041</data>
+      <data key="conf">0.99814</data>
     </edge>
     <edge source="n7" target="n7">
-      <data key="supp">0.000267</data>
-      <data key="conf">0.829787</data>
+      <data key="supp">0.000273</data>
+      <data key="conf">0.885714</data>
+    </edge>
+    <edge source="n7" target="n6">
+      <data key="supp">2e-006</data>
+      <data key="conf">0.006211</data>
     </edge>
     <edge source="n7" target="n5">
-      <data key="supp">2.7e-005</data>
-      <data key="conf">0.085106</data>
+      <data key="supp">2.4e-005</data>
+      <data key="conf">0.078261</data>
     </edge>
     <edge source="n7" target="n8">
-      <data key="supp">1.4e-005</data>
-      <data key="conf">0.042553</data>
+      <data key="supp">2e-006</data>
+      <data key="conf">0.007453</data>
     </edge>
     <edge source="n7" target="n9">
-      <data key="supp">1.4e-005</data>
-      <data key="conf">0.042553</data>
+      <data key="supp">7e-006</data>
+      <data key="conf">0.02236</data>
     </edge>
     <edge source="n0" target="n0">
-      <data key="supp">4.8e-005</data>
-      <data key="conf">0.5</data>
+      <data key="supp">4.1e-005</data>
+      <data key="conf">0.560847</data>
     </edge>
     <edge source="n0" target="n1">
-      <data key="supp">4.8e-005</data>
-      <data key="conf">0.5</data>
+      <data key="supp">3.2e-005</data>
+      <data key="conf">0.439153</data>
     </edge>
     <edge source="n6" target="n6">
-      <data key="supp">0.001724</data>
-      <data key="conf">0.837209</data>
+      <data key="supp">0.001749</data>
+      <data key="conf">0.852694</data>
     </edge>
     <edge source="n6" target="n5">
-      <data key="supp">7.5e-005</data>
-      <data key="conf">0.036545</data>
+      <data key="supp">6.6e-005</data>
+      <data key="conf">0.032072</data>
     </edge>
     <edge source="n6" target="n9">
-      <data key="supp">0.00026</data>
-      <data key="conf">0.126246</data>
+      <data key="supp">0.000236</data>
+      <data key="conf">0.115234</data>
     </edge>
     <edge source="n5" target="n4">
-      <data key="supp">4.8e-005</data>
-      <data key="conf">0.0875</data>
+      <data key="supp">4.3e-005</data>
+      <data key="conf">0.075737</data>
     </edge>
     <edge source="n5" target="n6">
       <data key="supp">6.8e-005</data>
-      <data key="conf">0.125</data>
+      <data key="conf">0.119303</data>
     </edge>
     <edge source="n5" target="n5">
-      <data key="supp">0.000431</data>
-      <data key="conf">0.7875</data>
+      <data key="supp">0.000459</data>
+      <data key="conf">0.80429</data>
     </edge>
     <edge source="n8" target="n7">
-      <data key="supp">0.000109</data>
-      <data key="conf">0.173913</data>
+      <data key="supp">0.000111</data>
+      <data key="conf">0.170401</data>
     </edge>
     <edge source="n8" target="n6">
-      <data key="supp">2.7e-005</data>
-      <data key="conf">0.043478</data>
+      <data key="supp">2e-005</data>
+      <data key="conf">0.030071</data>
     </edge>
     <edge source="n8" target="n8">
-      <data key="supp">0.000424</data>
-      <data key="conf">0.673913</data>
+      <data key="supp">0.000428</data>
+      <data key="conf">0.660377</data>
     </edge>
     <edge source="n8" target="n9">
-      <data key="supp">6.8e-005</data>
-      <data key="conf">0.108696</data>
+      <data key="supp">9e-005</data>
+      <data key="conf">0.139151</data>
+    </edge>
+    <edge source="n2" target="n6">
+      <data key="supp">4e-006</data>
+      <data key="conf">0.00457</data>
     </edge>
     <edge source="n2" target="n2">
-      <data key="supp">0.00067</data>
-      <data key="conf">0.803279</data>
+      <data key="supp">0.000682</data>
+      <data key="conf">0.815356</data>
     </edge>
     <edge source="n2" target="n1">
-      <data key="supp">0.000144</data>
-      <data key="conf">0.172131</data>
+      <data key="supp">0.000125</data>
+      <data key="conf">0.149452</data>
     </edge>
     <edge source="n2" target="n3">
-      <data key="supp">2.1e-005</data>
-      <data key="conf">0.02459</data>
+      <data key="supp">2.6e-005</data>
+      <data key="conf">0.030622</data>
     </edge>
     <edge source="n9" target="n6">
-      <data key="supp">2.1e-005</data>
-      <data key="conf">0.015075</data>
+      <data key="supp">1.2e-005</data>
+      <data key="conf">0.009193</data>
     </edge>
     <edge source="n9" target="n8">
-      <data key="supp">0.000294</data>
-      <data key="conf">0.21608</data>
+      <data key="supp">0.000277</data>
+      <data key="conf">0.208273</data>
     </edge>
     <edge source="n9" target="n9">
-      <data key="supp">0.001047</data>
-      <data key="conf">0.768844</data>
-    </edge>
-    <edge source="n1" target="n0">
-      <data key="supp">7e-006</data>
-      <data key="conf">0.009346</data>
+      <data key="supp">0.001042</data>
+      <data key="conf">0.782534</data>
     </edge>
     <edge source="n1" target="n6">
-      <data key="supp">4.1e-005</data>
-      <data key="conf">0.056075</data>
+      <data key="supp">4.8e-005</data>
+      <data key="conf">0.069099</data>
     </edge>
     <edge source="n1" target="n2">
-      <data key="supp">4.8e-005</data>
-      <data key="conf">0.065421</data>
+      <data key="supp">3.6e-005</data>
+      <data key="conf">0.05141</data>
     </edge>
     <edge source="n1" target="n1">
-      <data key="supp">0.000554</data>
-      <data key="conf">0.757009</data>
+      <data key="supp">0.000528</data>
+      <data key="conf">0.763958</data>
     </edge>
     <edge source="n1" target="n3">
-      <data key="supp">8.2e-005</data>
-      <data key="conf">0.11215</data>
+      <data key="supp">8e-005</data>
+      <data key="conf">0.114981</data>
     </edge>
     <edge source="n3" target="n6">
-      <data key="supp">6.2e-005</data>
-      <data key="conf">0.072</data>
+      <data key="supp">3.9e-005</data>
+      <data key="conf">0.047248</data>
     </edge>
     <edge source="n3" target="n2">
       <data key="supp">4.1e-005</data>
-      <data key="conf">0.048</data>
+      <data key="conf">0.048624</data>
     </edge>
     <edge source="n3" target="n1">
-      <data key="supp">2.1e-005</data>
-      <data key="conf">0.024</data>
+      <data key="supp">2.7e-005</data>
+      <data key="conf">0.03211</data>
     </edge>
     <edge source="n3" target="n3">
-      <data key="supp">0.000732</data>
-      <data key="conf">0.856</data>
+      <data key="supp">0.000726</data>
+      <data key="conf">0.87156</data>
     </edge>
   </graph>
 </graphml>

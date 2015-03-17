@@ -9,6 +9,8 @@
   <key id="lat_wmc" for="node" attr.name="lat_wmc" attr.type="double"/>
   <key id="name" for="node" attr.name="name" attr.type="string"/>
   <key id="lon_wmc" for="node" attr.name="lon_wmc" attr.type="double"/>
+  <key id="supp" for="edge" attr.name="supp" attr.type="double"/>
+  <key id="conf" for="edge" attr.name="conf" attr.type="double"/>
   <graph id="G" edgedefault="directed">
     <data key="name">201111</data>
     <node id="n0">
@@ -71,5 +73,97 @@
       <data key="name">SLE</data>
       <data key="lon_wmc">28.6565</data>
     </node>
+    <edge source="n4" target="n4">
+      <data key="supp">2.7e-005</data>
+      <data key="conf">1</data>
+    </edge>
+    <edge source="n7" target="n7">
+      <data key="supp">1.8e-005</data>
+      <data key="conf">0.851852</data>
+    </edge>
+    <edge source="n7" target="n6">
+      <data key="supp">3e-006</data>
+      <data key="conf">0.148148</data>
+    </edge>
+    <edge source="n6" target="n6">
+      <data key="supp">7.8e-005</data>
+      <data key="conf">0.89083</data>
+    </edge>
+    <edge source="n6" target="n5">
+      <data key="supp">5e-006</data>
+      <data key="conf">0.056769</data>
+    </edge>
+    <edge source="n6" target="n9">
+      <data key="supp">5e-006</data>
+      <data key="conf">0.052402</data>
+    </edge>
+    <edge source="n5" target="n6">
+      <data key="supp">8e-006</data>
+      <data key="conf">0.17094</data>
+    </edge>
+    <edge source="n5" target="n5">
+      <data key="supp">3.5e-005</data>
+      <data key="conf">0.777778</data>
+    </edge>
+    <edge source="n5" target="n9">
+      <data key="supp">2e-006</data>
+      <data key="conf">0.034188</data>
+    </edge>
+    <edge source="n8" target="n8">
+      <data key="supp">2.1e-005</data>
+      <data key="conf">0.613636</data>
+    </edge>
+    <edge source="n8" target="n9">
+      <data key="supp">1.3e-005</data>
+      <data key="conf">0.375</data>
+    </edge>
+    <edge source="n2" target="n2">
+      <data key="supp">2.3e-005</data>
+      <data key="conf">0.9375</data>
+    </edge>
+    <edge source="n2" target="n3">
+      <data key="supp">1e-006</data>
+      <data key="conf">0.046875</data>
+    </edge>
+    <edge source="n9" target="n6">
+      <data key="supp">3e-006</data>
+      <data key="conf">0.039326</data>
+    </edge>
+    <edge source="n9" target="n8">
+      <data key="supp">2e-005</data>
+      <data key="conf">0.286517</data>
+    </edge>
+    <edge source="n9" target="n9">
+      <data key="supp">4.6e-005</data>
+      <data key="conf">0.674157</data>
+    </edge>
+    <edge source="n1" target="n6">
+      <data key="supp">6e-006</data>
+      <data key="conf">0.277778</data>
+    </edge>
+    <edge source="n1" target="n1">
+      <data key="supp">1e-005</data>
+      <data key="conf">0.462963</data>
+    </edge>
+    <edge source="n1" target="n3">
+      <data key="supp">5e-006</data>
+      <data key="conf">0.222222</data>
+    </edge>
+    <edge source="n3" target="n6">
+      <data key="supp">2e-006</data>
+      <data key="conf">0.037267</data>
+    </edge>
+    <edge source="n3" target="n2">
+      <data key="supp">2e-006</data>
+      <data key="conf">0.031056</data>
+    </edge>
+    <edge source="n3" target="n1">
+      <data key="supp">1.1e-005</data>
+      <data key="conf">0.180124</data>
+    </edge>
+    <edge source="n3" target="n3">
+      <data key="supp">4.6e-005</data>
+      <data key="conf">0.751553</data>
+    </edge>
   </graph>
 </graphml>
